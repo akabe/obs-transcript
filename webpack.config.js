@@ -42,6 +42,18 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              limit: 51200,
+              name: 'images/[name].[ext]'
+            }
+          }
+        ]
       }
     ]
   },
