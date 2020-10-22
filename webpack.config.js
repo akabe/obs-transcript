@@ -18,7 +18,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.riot$/,
+        test: /\.tag\.html$/,
         enforce: 'pre',
         exclude: /node_modules/,
         use: [
@@ -31,7 +31,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.js|\.riot$/,
+        test: /\.js|\.tag\.html$/,
         enforce: 'post',
         exclude: /node_modules/,
         use: [
@@ -46,6 +46,6 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.riot']
+    extensions: ['.js', '.tag.html']
   }
 };

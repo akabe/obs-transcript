@@ -1,4 +1,4 @@
-import OBSWebSocket from "obs-websocket-js"
+import OBSWebSocket from "obs-websocket-js";
 
 export default class {
   constructor() {
@@ -22,18 +22,18 @@ export default class {
   }
 
   setTextGDIPlus(sourceName, text) {
-    return this.websocket.send('SetTextGDIPlusProperties',
+    return this.websocket.send("SetTextGDIPlusProperties",
                                {
-                                 'source': sourceName,
-                                 'text': text
+                                 "source": sourceName,
+                                 "text": text
                                });
   }
 
   setTextFreetype2(sourceName, text) {
-    return this.websocket.send('SetTextFreetype2Properties',
+    return this.websocket.send("SetTextFreetype2Properties",
                                {
-                                 'source': sourceName,
-                                 'text': text
+                                 "source": sourceName,
+                                 "text": text
                                });
   }
 }

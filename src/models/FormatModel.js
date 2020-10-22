@@ -13,14 +13,14 @@ export default class {
    */
   splitlines(str, maxCols) {
     let lines = [];
-    let currLine = '';
+    let currLine = "";
 
     str.split(/ /).forEach(wd => {
       if (currLine.length == 0) {
         lines = this.splitcharwise(lines, wd, maxCols);
         currLine = lines.pop();
       } else {
-        const newLine = currLine + ' ' + wd;
+        const newLine = currLine + " " + wd;
 
         if (newLine.length <= maxCols) {
           currLine = newLine;

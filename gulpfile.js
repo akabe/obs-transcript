@@ -9,7 +9,7 @@ const webpack = require("webpack");
 
 gulp.task('html', function () {
   return gulp
-    .src(['src/*.html'])
+    .src(['src/index.html'])
     .pipe(htmlmin())
     .pipe(gulp.dest('dist'));
 });
@@ -34,8 +34,8 @@ gulp.task('webpack', function () {
 gulp.task('default', gulp.parallel('html', 'sass', 'webpack'));
 
 gulp.task('watch', function () {
-  gulp.watch('src/*.html', gulp.parallel('html'));
+  gulp.watch('src/index.html', gulp.parallel('html'));
   gulp.watch('src/**/*.scss', gulp.parallel('sass'));
   gulp.watch('src/**/*.js', gulp.parallel('webpack'));
-  gulp.watch('src/**/*.riot', gulp.parallel('webpack'));
+  gulp.watch('src/**/*.tag.html', gulp.parallel('webpack'));
 });

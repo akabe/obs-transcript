@@ -20,16 +20,16 @@ export default class {
       this.engine.maxAlternatives = 1;
 
       this.engine.onstart = resolve;
-      this.engine.onend = (event) => {
+      this.engine.onend = () => {
         if (this.isRunning) this.engine.start();
       };
       this.engine.onerror = reject;
       this.engine.onresult = (event) => {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
           onresult({
-            'isFinal': event.results[i].isFinal,
-            'transcript': event.results[i][0].transcript,
-            'confidence': event.results[i][0].confidence,
+            "isFinal": event.results[i].isFinal,
+            "transcript": event.results[i][0].transcript,
+            "confidence": event.results[i][0].confidence,
           });
         }
       };
