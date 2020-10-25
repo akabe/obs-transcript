@@ -15,7 +15,7 @@ export default class {
     let lines = [];
     let currLine = "";
 
-    str.split(/ /).forEach(wd => {
+    str.trim().split(/ /).forEach(wd => {
       if (currLine.length == 0) {
         lines = this.splitcharwise(lines, wd, maxCols);
         currLine = lines.pop();
