@@ -7,7 +7,7 @@ export default class {
   }
 
   start(lang, onresult) {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (webkitSpeechRecognition) {
         this.engine = new webkitSpeechRecognition();
       } else if (SpeechRecognition) {
@@ -19,11 +19,20 @@ export default class {
       this.engine.interimResults = true;
       this.engine.maxAlternatives = 1;
 
-      this.engine.onstart = resolve;
-      this.engine.onend = () => {
-        if (this.isRunning) this.engine.start();
+      const model = this;
+
+      this.engine.onstart = () => {
+        console.log("Speech recognition started.");
+        resolve();
       };
-      this.engine.onerror = reject;
+      this.engine.onend = () => {
+        console.log("Speech recognition stopped.");
+        if (model.engine) model.engine.start();
+      };
+      this.engine.onerror = (event) => {
+        console.log("Speech recognition stopped by error: ", event);
+        if (model.engine) model.engine.start();
+      };
       this.engine.onresult = (event) => {
         for (var i = event.resultIndex; i < event.results.length; ++i) {
           onresult({
