@@ -17,4 +17,9 @@ describe("splitlines", () => {
     const actual = formatModel.splitlines("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 10);
     expect(actual).toEqual(["Lorem", "ipsum", "dolor sit", "amet, cons", "ectetur", "adipiscing", "elit."]);
   });
+
+  it("splits a string containing spaces at the beginning.", () => {
+    const actual = formatModel.splitlines(" Lorem ipsum dolor sit amet, consectetur adipiscing elit.", 10);
+    expect(actual).toEqual(["Lorem", "ipsum", "dolor sit", "amet, cons", "ectetur", "adipiscing", "elit."]);
+  });
 });
