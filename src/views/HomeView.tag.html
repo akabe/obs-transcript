@@ -4,6 +4,7 @@
       <h1>OBS Transcript</h1>
       <p>
         Real-time subtitle generation by speech recognition for <a href="https://obsproject.com/">OBS Studio</a>.
+        <a href="https://github.com/sponsors/akabe"><img src="https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub&color=ff69b4&link=https://github.com/sponsors/srz-zumix" alt="Sponsor" /></a>
       </p>
       <section>
         <div class="row">
@@ -38,90 +39,104 @@
     </div>
 
     <section>
-      <h3>1. Enable OBS WebSocket</h3>
-      <div class="row">
-        <div class="col-md-7">
-          <p>
-            Install <a href="https://github.com/Palakis/obs-websocket/releases">obs-websocket</a> 4.8 or above, and
-            open "WebSocket Server Settings" dialog under OBS' "Tools" menu.
-            After activation of OBS WebSocket Server, copy the WebSocket settings into the following text boxes.
-          </p>
-          <p>
-            <label>Address</label>
-            <div class="input-group">
-	      <span class="input-group-addon">ws://</span>
-              <input type="text"
+      <h2>Setup</h2>
+
+      <section>
+        <h3>1. Enable OBS WebSocket</h3>
+        <div class="row">
+          <div class="col-md-7">
+            <p>
+              Install <a href="https://github.com/Palakis/obs-websocket/releases">obs-websocket</a> 4.8 or above, and
+              open "WebSocket Server Settings" dialog under "Tools" menu in OBS.
+              After activation of OBS WebSocket Server, copy the WebSocket settings into the following text boxes.
+            </p>
+            <p>
+              <label>Address</label>
+              <div class="input-group">
+	        <span class="input-group-addon">ws://</span>
+                <input type="text"
+                       class="form-control"
+                       placeholder="Host:Port"
+                       value="{ homeModel.websocketAddress }"
+                       oninput="{ e => homeModel.websocketAddress = e.target.value }"
+                       disabled="{ isRunning }" />
+              </div>
+            </p>
+            <p>
+              <label>Password</label>
+              <input type="password"
                      class="form-control"
-                     placeholder="Host:Port"
-                     value="{ homeModel.websocketAddress }"
-                     oninput="{ e => homeModel.websocketAddress = e.target.value }"
+                     placeholder="Password"
+                     value="{ homeModel.websocketPassword }"
+                     oninput="{ e => homeModel.websocketPassword = e.target.value }"
                      disabled="{ isRunning }" />
-            </div>
-          </p>
-          <p>
-            <label>Password</label>
-            <input type="password"
-                   class="form-control"
-                   placeholder="Password"
-                   value="{ homeModel.websocketPassword }"
-                   oninput="{ e => homeModel.websocketPassword = e.target.value }"
-                   disabled="{ isRunning }" />
-          </p>
+            </p>
+          </div>
+          <div class="col-md-5 right-image">
+            <image src="images/obs-websocket-connection.png" width="350" />
+          </div>
         </div>
-        <div class="col-md-5 right-image">
-          <image src="images/obs-websocket-connection.png" width="350" />
+      </section>
+
+      <section>
+        <h3>2. Create a text source</h3>
+        <div class="row">
+          <div class="col-md-7">
+            <p>
+              Add "Text (GDI+)" on Windows, or "Text (FreeType 2)" on Mac OS X or Linux to "Sources" in OBS.
+            </p>
+            <p>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>Source name</label>
+                  <input type="text"
+                         class="form-control"
+                         placeholder="Text source"
+                         value="{ homeModel.sourceName }"
+                         oninput="{ e => homeModel.sourceName = e.target.value }"
+                         disabled="{ isRunning }" />
+                </div>
+                <div class="col-md-6">
+                  <label>Source type</label>
+                  <select class="form-control"
+                          oninput="{ e => homeModel.sourceType = e.target.value }"
+                          disabled="{ isRunning }">
+                    <option value="0" selected="{ homeModel.sourceType == 0 }">Text (GDI+) [Windows]</option>
+                    <option value="1" selected="{ homeModel.sourceType == 1 }">Text (FreeType 2) [Mac/Linux]</option>
+                  </select>
+                </div>
+              </div>
+            </p>
+            <p>
+              <div class="row">
+                <div class="col-md-6">
+                  <label>The number of lines</label>
+                  <input type="text" class="form-control" value="{ homeModel.maxRows }"
+                         oninput="{ e => homeModel.maxRows = e.target.value }" />
+                </div>
+                <div class="col-md-6">
+                  <label>The number of characters per line</label>
+                  <input type="text" class="form-control" value="{ homeModel.maxCols }"
+                         oninput="{ e => homeModel.maxCols = e.target.value }" />
+                </div>
+              </div>
+            </p>
+          </div>
+          <div class="col-md-5 right-image">
+            <image src="images/obs-create-text-source.png" width="350" />
+          </div>
         </div>
-      </div>
+      </section>
     </section>
 
     <section>
-      <h3>2. Create a text source</h3>
-      <div class="row">
-        <div class="col-md-7">
-          <p>
-            Add "Text (GDI+)" on Windows, or "Text (FreeType 2)" on Mac OS X or Linux to OBS' "Sources".
-          </p>
-          <p>
-            <div class="row">
-              <div class="col-md-6">
-                <label>Source name</label>
-                <input type="text"
-                       class="form-control"
-                       placeholder="Text source"
-                       value="{ homeModel.sourceName }"
-                       oninput="{ e => homeModel.sourceName = e.target.value }"
-                       disabled="{ isRunning }" />
-              </div>
-              <div class="col-md-6">
-                <label>Source type</label>
-                <select class="form-control"
-                        oninput="{ e => homeModel.sourceType = e.target.value }"
-                        disabled="{ isRunning }">
-                  <option value="0" selected="{ homeModel.sourceType == 0 }">Text (GDI+) [Windows]</option>
-                  <option value="1" selected="{ homeModel.sourceType == 1 }">Text (FreeType 2) [Mac/Linux]</option>
-                </select>
-              </div>
-            </div>
-          </p>
-          <p>
-            <div class="row">
-              <div class="col-md-6">
-                <label>The number of lines</label>
-                <input type="text" class="form-control" value="{ homeModel.maxRows }"
-                       oninput="{ e => homeModel.maxRows = e.target.value }" />
-              </div>
-              <div class="col-md-6">
-                <label>The number of characters per line</label>
-                <input type="text" class="form-control" value="{ homeModel.maxCols }"
-                       oninput="{ e => homeModel.maxCols = e.target.value }" />
-              </div>
-            </div>
-          </p>
-        </div>
-        <div class="col-md-5 right-image">
-          <image src="images/obs-create-text-source.png" width="350" />
-        </div>
-      </div>
+      <h2>Sponsorship</h2>
+      <p>
+        If you like this project, please support by becoming a sponsor via <a href="https://github.com/sponsors/akabe">GitHub Sponsors</a>.
+        I hope to make OBS Transcript much better.
+        Could you fund me for improvement of the project?
+        I will publish your (company) logo and a link to your homepage in the <a href="https://akabe.github.io/obs-transcript">project page</a> and <a href="https://github.com/akabe/obs-transcript/blob/main/README.md">README</a> if you support me. Please send me an e-mail including a logo file.
+      </p>
     </section>
   </div>
 

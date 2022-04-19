@@ -9,4 +9,7 @@ module.exports = {
     "**/src/**/*.js",
     "!**/node_modules/**",
   ],
+  transform: {
+    "\\.[jt]sx?$": "babel-jest"
+  },
 };
